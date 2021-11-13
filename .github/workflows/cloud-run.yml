@@ -31,15 +31,15 @@ jobs:
     - name: Build
       run: |-
         docker build \
-          --tag "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA" \
+          --tag "gcr.io/$PROJECT_ID/$IMAGE:latest" \
 
     - name: Publish
       run: |-
-        docker push "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA"
+        docker push "gcr.io/$PROJECT_ID/$IMAGE:latest"
 
     - name: Deploy to Cloud Run
       uses: google-github-actions/deploy-cloudrun@v0.3.0
       with:
-        image: gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA
+        image: gcr.io/$PROJECT_ID/$IMAGE:latest
         service: $IMAGE
 
