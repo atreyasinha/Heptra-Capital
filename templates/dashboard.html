@@ -1,0 +1,63 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<h1 class="text-center py-5">Welcome, {{investor.full_name}}!</h1>
+<section>
+    <div class="container">
+        <div class="row g-5 py-5">
+            <div class="col-md-5 col-lg-4 order-md-last">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-dark">Your Ledger</span>
+                </h4>
+                <ul class="list-group mb-3">
+                    {% for l in ledger %}
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                        <div>
+                            <h6 class="my-0">{{l.transaction}}</h6>
+                            <small class="text-muted">{{l.timestamp}}</small>
+                        </div>
+                        <span class="text-muted">${{l.money_moved}}</span>
+                    </li>
+                    {% endfor %}
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Total (USD)</span>
+                        <strong>${{financials.capital_invested}}</strong>
+                    </li>
+                    <div class="container text-center py-5">
+                        <h1 style="font-size: 80px">{{financials.shareholder}}%</h1>
+                        <span>Shareholder</span>
+                    </div>
+                </ul>
+            </div>
+            <div class="col-md-7 col-lg-8">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <h2><i class="fas fa-briefcase" aria-hidden="true"></i>${{prometheus.capital}}</h2>
+                        <span>Prometheus Capital</span> 
+                    </div>
+                    <div class="col-lg-4">
+                        <h2><i class="fas fa-code-branch" aria-hidden="true"></i>${{prometheus.value}}</h2>
+                        <span>Prometheus Worth</span> 
+                    </div>
+                    <div class="col-lg-4">
+                        <h2><i class="far fa-building" aria-hidden="true"></i>{{prometheus.returns}}%</h2>
+                        <span>Prometheus Returns</span> 
+                    </div>
+                </div>
+                <div class="row py-5">
+                    <div class="col-lg-4">
+                        <h2><i class="fas fa-briefcase" aria-hidden="true"></i>${{financials.capital_invested}}</h2>
+                        <span>Your Capital</span> 
+                    </div>
+                    <div class="col-lg-4">
+                        <h2><i class="fas fa-code-branch" aria-hidden="true"></i>${{financials.market_value}}</h2>
+                        <span>Your Worth</span> 
+                    </div>
+                    <div class="col-lg-4">
+                        <h2><i class="far fa-building" aria-hidden="true"></i>{{financials.returns}}%</h2>
+                        <span>Your Returns</span> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

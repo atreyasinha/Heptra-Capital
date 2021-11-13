@@ -1,0 +1,26 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<br><br><br>
+<div class="modal-dialog" role="document">
+    <div class="modal-content rounded-5 shadow">
+        <div class="modal-header p-5 pb-4 border-bottom-0">
+            <h2 class="fw-bold mb-0">Admin Login</h2>
+        </div>
+        <div class="modal-body p-5 pt-0">
+            <form class="" action="" method="POST">
+                {% csrf_token %}
+                <div class="form-floating mb-3">
+                    {{form.username}}
+                    <label for="floatingInput">Username</label>
+                </div>
+                <div class="form-floating mb-3">
+                    {{form.password}}
+                    <label for="floatingPassword">Password</label>
+                </div>
+                <button class="w-100 mb-2 btn btn-lg rounded-4 btn-outline-dark" type="submit">Login</button>
+                <small class="text-muted">For Administrative purposes only.</small>
+            </form>
+        </div>
+    </div>
+</div>
+<br><br>
+{% endblock %}

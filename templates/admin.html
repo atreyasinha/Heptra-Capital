@@ -1,0 +1,89 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="row text-center py-5">
+    <div class="col-lg-4">
+        <h2><i class="fas fa-briefcase" aria-hidden="true"></i>${{prometheus.capital}}</h2>
+        <span>Capital Invested</span> 
+    </div>
+    <div class="col-lg-4">
+        <h2><i class="fas fa-code-branch" aria-hidden="true"></i>${{prometheus.value}}</h2>
+        <span>Current Value</span> 
+    </div>
+    <div class="col-lg-4">
+        <h2><i class="far fa-building" aria-hidden="true"></i>{{prometheus.returns}}%</h2>
+        <span>Returns</span> 
+    </div>
+</div>
+</div>
+<div class="conatainer">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Add Transaction</h5>
+                        <br>
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <div class="row">
+                                {% for f in form_add %}
+                                <div class="col-md-3">
+                                    {{f}}
+                                </div>
+                                {% endfor %}
+                                <div class="col-md-3">
+                                    <button type="submit" class="btn btn-outline-dark">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Update Prometheus Value</h5>
+                        <br>
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {{form_update.value}}
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="submit" class="btn btn-outline-dark">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Ledger -->
+<!-- Update Prometheus Value -->
+<h1 class="text-center py-5">Ledger</h1>
+<div class="container">
+    <table class="table table-borderless">
+        <thead>
+            <tr>
+                <th scope="col">Timestamp</th>
+                <th scope="col">Investor</th>
+                <th scope="col">Transaction</th>
+                <th scope="col">Funds</th>
+            </tr>
+        </thead>
+        {% for l in ledger %}
+        <tbody>
+            <tr>
+                <th scope="row">{{l.timestamp}}</th>
+                <td>{{l.investor}}</td>
+                <td>{{l.transaction}}</td>
+                <td>{{l.money_moved}}</td>
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+    <br>
+</div>
+{% endblock %}
