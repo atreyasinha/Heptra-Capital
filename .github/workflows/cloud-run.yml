@@ -41,11 +41,7 @@ jobs:
 
     - name: Deploy to Cloud Run
       uses: google-github-actions/deploy-cloudrun@v0.3.0
-      run: |-
-        gcloud run deploy "$IMAGE" \
-          --quiet \
-          --region "$RUN_REGION" \
-          --image "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA" \
-          --platform "managed" \
-          --allow-unauthenticated
+      with:
+        image: gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA
+        service: $IMAGE
 
