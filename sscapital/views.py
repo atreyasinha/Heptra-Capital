@@ -1,3 +1,4 @@
+from django.db.models import Count
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.views import View
@@ -23,10 +24,9 @@ class Dashboard(View):
 @method_decorator(login_required, name="dispatch")
 class Admin(View):
     def get(self, request):
-        ledger = Ledger.objects.all()
+        ledger = Ledger.objects.order_by('-timestamp')
         prometheus = Prometheus.objects.get(id=1)
         financials = Financials.objects.all()
-
         form_add = AddTransactionForm()
         form_update = UpdatePrometheus()
 
