@@ -7,39 +7,38 @@ on:
 
 env:
   PROJECT_NAME: heptra-capital
+  PROJECT_ID: ${{ secrets.RUN_PROJECT }}
+  RUN_REGION: us-west1
+  KEY: ${{ secrets.RUN_SA_KEY }}
 
 jobs:
-  setup-build-publish-deploy:
-    name: Setup, Build, Publish, and Deploy
+  deploy:
+    name: Deploy to cloud run
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: google-github-actions/setup-gcloud@master
+      - name: Checkout
+        uses: actions/checkout@v2
 
-    # Setup gcloud CLI
-    - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
-      with:
-        project_id: ${{ secrets.RUN_PROJECT }}
-        service_account_key: ${{ secrets.RUN_SA_KEY }}
-        export_default_credentials: true
-    
-    # Configure Docker with Credentials
-    - name: Configure Docker
-      run: |
-        gcloud auth configure-docker
+      # Setup gcloud CLI
+      - uses: google-github-actions/setup-gcloud@master
+        with:
+          project_id: $PROJECT_ID
+          service_account_key: $KEY
+          export_default_credentials: true
       
-    # Build the Docker image
-    - name: Build & Publish
-      run: |
-        gcloud config set project $PROJECT_NAME
-        gcloud builds submit --tag gcr.io/${{ secrets.RUN_PROJECT }}/$PROJECT_NAME
-        gcloud config set run/region us-west1
-      
-    # Deploy the Docker image to the Cloud Run
-    - name: Deploy to cloud run
-      id: deploy
-      uses: google-github-actions/deploy-cloudrun@main
-      with:
-        service: hello-cloud-run 
-        image: gcr.io/${{ secrets.RUN_PROJECT }}/$PROJECT_NAME
+      # Configure Docker with Credentials
+      - name: Configure Docker
+        run: |
+          gcloud auth configure-docker
+        
+      # Build the Docker image
+      - name: Build & Publish
+        run: |
+          gcloud builds submit --tag gcr.io/$PROJECT_ID/$PROJECT_NAME:$GITHUB_SHA
+        
+      # Deploy the Docker image to the Cloud Run
+      - name: Deploy
+        run: |
+          gcloud run deploy $PROJECT_NAME --image gcr.io/$PROJECT_ID/$PROJECT_NAME:$GITHUB_SHA --platform managed --region $RUN_REGION --allow-unauthenticated
+
 
