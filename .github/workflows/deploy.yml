@@ -9,6 +9,7 @@ env:
   PROJECT_NAME: heptra-capital
   PROJECT_ID: ${{ secrets.RUN_PROJECT }}
   RUN_REGION: us-west1
+  KEYS: ${{ secrets.RUN_SA_KEY }}
 
 jobs:
   deploy:
@@ -33,7 +34,7 @@ jobs:
       # Build the Docker image
       - name: Build & Publish
         run: |
-          gcloud builds submit --tag --impersonate-service-account gcr.io/$PROJECT_ID/$PROJECT_NAME:$GITHUB_SHA
+          gcloud builds submit --tag gcr.io/$PROJECT_ID/$PROJECT_NAME:$GITHUB_SHA
         
       # Deploy the Docker image to the Cloud Run
       - name: Deploy
