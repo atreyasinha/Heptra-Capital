@@ -32,12 +32,13 @@ jobs:
       run: |
         gcloud config set project $PROJECT_NAME
         gcloud builds submit --tag gcr.io/${{ secrets.RUN_PROJECT }}/$PROJECT_NAME
-        gcloud config set run/region us-central1
+        gcloud config set run/region us-west1
       
-    # Deploy the Docker image to the GKE cluster
-    - name: Deploy
-      run: |
-        gcloud run deploy $PROJECT_NAME --image gcr.io/${{ secrets.RUN_PROJECT }}/$PROJECT_NAME \
-        --platform managed \
-        --allow-unauthenticated \
-        --memory 512M
+    # Deploy the Docker image to the Cloud Run
+    - name: Deploy to cloud run
+      id: deploy
+      uses: google-github-actions/deploy-cloudrun@main
+      with:
+        service: hello-cloud-run 
+        image: gcr.io/${{ secrets.RUN_PROJECT }}/$PROJECT_NAME
+
