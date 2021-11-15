@@ -1,0 +1,18 @@
+# Enviroments
+venv/
+
+# Pipelines
+.github/
+
+# Dockerfile
+Dockerfile
+
+# git
+.gitignore
+
+# License
+LICENSE
+
+# Readme
+README.md
+
