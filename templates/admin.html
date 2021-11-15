@@ -1,4 +1,5 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
+{% if user.get_username == 'admin' %}
 <br>
 {% include "prometheus.html" %}
 <div class="conatainer">
@@ -73,4 +74,9 @@
     </table>
     <br>
 </div>
+{% else %}
+<h1 class="text-center" style="color: #286181ff;">You are not admin!</h1>
+<lottie-player src="https://assets7.lottiefiles.com/packages/lf20_GIyuXJ.json"  background="transparent"  speed="1"  style="width: 100%; height: 500px;"  loop  autoplay></lottie-player>
+{% endif %}
+
 {% endblock %}

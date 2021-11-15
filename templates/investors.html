@@ -1,0 +1,26 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<h2 class="fw-bold text-center" style="color: #2F3E42ff;">Prometheus</h2>
+{% include "prometheus.html" %}
+<!-- Leadership -->
+<div class="container px-4 text-center" id="icon-grid">
+    <h2 class="fw-bold" style="color: #2F3E42ff;">Leadership</h2>
+    <br><br><br>
+    <div class="row row-cols-lg-4">
+        {% for i in investors %} 
+        <div class="">
+            <div class=" text-center">
+                <img src="{{ i.image.url }}" class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false">
+                </img>
+                <br> <br>
+                <div>
+                    <h4 class="mb-0">{{i.full_name}} </h4>
+                    <p class="text-muted" style="font-size: small;">{{i.description}}</p>
+                </div>
+                <a href="{% url 'dashboard' i.id %}" class="btn btn-outline-dark">View Details</a>
+            </div>
+            <br><br><br>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

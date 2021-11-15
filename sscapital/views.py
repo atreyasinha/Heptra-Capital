@@ -8,9 +8,7 @@ from .forms import AddTransactionForm, UpdatePrometheus
 
 class LandingPage(View):
     def get(self, request):
-        investors = Investors.objects.all()
-        prometheus = Prometheus.objects.get(id=1)
-        return render(request, 'index.html', {'investors': investors, 'prometheus': prometheus})
+        return render(request, 'index.html', {})
 
 class Dashboard(View):
     def get(self, request, pk):
@@ -94,3 +92,9 @@ class Admin(View):
 
         return redirect('/administrator')
 
+@method_decorator(login_required, name="dispatch")
+class Investor(View):
+    def get(self, request):
+        investors = Investors.objects.all()
+        prometheus = Prometheus.objects.get(id=1)
+        return render(request, 'investors.html', {'investors': investors, 'prometheus': prometheus})
