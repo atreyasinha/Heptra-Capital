@@ -34,9 +34,7 @@ jobs:
       # Build the Docker image
       - name: Build & Publish
         run: |
-          gcloud config set project $PROJECT_NAME
           gcloud builds submit --tag gcr.io/$PROJECT_ID/$PROJECT_NAME:$GITHUB_SHA
-          gcloud config set run/region us-west1
         
       # Deploy the Docker image to the Cloud Run
       - name: Deploy
