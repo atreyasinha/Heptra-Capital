@@ -14,8 +14,7 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
+STATIC_ROOT = '/var/www/assets/'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -26,7 +25,7 @@ SECRET_KEY = 'django-insecure-v)1&-+#yg2xdd$jddc#$z-c!1gu%v*%_^*_&ppw@pm^x%w-^*8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['heptra-capital-txzieti3ba-uw.a.run.app']
+ALLOWED_HOSTS = ['heptra-capital-txzieti3ba-uw.a.run.app', '*']
 
 
 # Application definition
