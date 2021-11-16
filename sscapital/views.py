@@ -84,6 +84,7 @@ class Admin(View):
             for i in Financials.objects.all():
                 if i.capital_invested == 0:
                     continue
+                
                 financial_value = round(i.market_value + (i.shareholder * difference) / 100, 2)
                 i.market_value = round(financial_value)
                 i.returns = round(((financial_value - i.capital_invested) / i.capital_invested) * 100, 2)
