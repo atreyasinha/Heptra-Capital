@@ -1,1 +1,1 @@
-web: gunicorn Hedgefund.wsgi --log-file -
+web: gunicorn HedgeFund.wsgi --log-file -
