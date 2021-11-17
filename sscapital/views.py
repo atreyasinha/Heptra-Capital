@@ -76,8 +76,8 @@ class Admin(View):
         if form_update.is_valid():
             value = form_update.cleaned_data['value']
             data = Prometheus.objects.get(id=1)
+            difference = round(float(value), 2) - data.value
             data.value = round(float(value), 2)
-            difference = round(float(value), 2) - data.capital
             data.returns = round((difference / data.capital) * 100, 2)
             data.save()
 
@@ -85,7 +85,7 @@ class Admin(View):
                 if i.capital_invested == 0:
                     continue
                 
-                financial_value = round(i.market_value + (i.shareholder * difference) / 100, 2)
+                financial_value = round(i.market_value + ((i.shareholder * difference) / 100), 2)
                 i.market_value = round(financial_value, 2)
                 i.returns = round(((financial_value - i.capital_invested) / i.capital_invested) * 100, 2)
                 i.shareholder = round((financial_value / value) * 100, 2)
