@@ -13,4 +13,7 @@ venv/
 # Mac fs
 *.DS_Store
 
+# Profile images
+static/PROFILE_IMAGE/
+
 
