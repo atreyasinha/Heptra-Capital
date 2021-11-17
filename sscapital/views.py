@@ -76,9 +76,9 @@ class Admin(View):
         if form_update.is_valid():
             value = form_update.cleaned_data['value']
             data = Prometheus.objects.get(id=1)
-            difference = round(float(value), 2) - data.value
+            difference = round(float(value) - data.value, 2)
             data.value = round(float(value), 2)
-            data.returns = round((difference / data.capital) * 100, 2)
+            data.returns = round(((float(value) - data.value) / data.capital) * 100, 2)
             data.save()
 
             for i in Financials.objects.all():
